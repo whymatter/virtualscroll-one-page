@@ -14,21 +14,28 @@ var innerData = getInnerData(pcImage);
 var innerWidth = getInnerWidth(innerData);
 var innerHeight = getInnerHeight(innerData);
 
+// starting scale
 var widthScale = getImageScaleFactor(innerWidth, viewportWidth);
 var heightScale = getImageScaleFactor(innerHeight, viewportHeight);
-
 var usedScale = Math.min(widthScale, heightScale);
 var scale = buildScale(usedScale);
-
 var scaledWidth = scale(pcImageWidth);
 var scaledHeight = scale(pcImageHeight);
-
 var leftX  = -scale(getLeftX(innerData)) - ((scale(innerWidth) - viewportWidth) / 2);
 var upperY = -scale(getUpperY(innerData)) - ((scale(innerHeight) - viewportHeight) / 2);
 
+// final scale
+var width2Scale = getImageScaleFactor(pcImageWidth, viewportWidth);
+var height2Scale = getImageScaleFactor(pcImageHeight, viewportHeight);
+var used2Scale = Math.min(width2Scale, height2Scale);
+var scale2 = buildScale(used2Scale);
+var scaledWidth2 = scale2(pcImageWidth);
+var scaledHeight2 = scale2(pcImageHeight);
+var leftX2  = -((scale2(pcImageWidth) - viewportWidth) / 2);
+var upperY2 = -((scale2(pcImageHeight) - viewportHeight) / 2);
+
 pcImage.style.backgroundSize = `${scaledWidth}px ${scaledHeight}px`;
 pcImage.style.backgroundPosition = `${leftX}px ${upperY}px`;
-
 
 function onScroll(e, a) {
     var percent = window.scrollY/viewportHeight;
@@ -37,17 +44,20 @@ function onScroll(e, a) {
         firstScreen.style.transform = `scale(1.0)`;
         secondImage.style.clipPath = `polygon(0 ${100-(percent*100)}%, 0 100%, 100% 100%, 100% ${(percent*100)}%)`;
 
+        pcImage.style.backgroundSize = `${scaledWidth}px ${scaledHeight}px`;
+        pcImage.style.backgroundPosition = `${leftX}px ${upperY}px`;
     } else if (percent <= 1.5) {
         
-        var thisPercent = percent - 0.5;
+        pcImage.style.backgroundSize = `${scaledWidth2}px ${scaledHeight2}px`;
+        pcImage.style.backgroundPosition = `${leftX2}px ${upperY2}px`;
 
-        var deltaWidth = scaledWidth - viewportWidth;
-        var deltaHeight = scaledHeight - viewportHeight;
+        // var thisPercent = percent - 0.5;
+
+        // var deltaWidth = scaledWidth - viewportWidth;
+        // var deltaHeight = scaledHeight - viewportHeight;
         
-        pcImage.style.backgroundSize = `${scaledWidth - deltaWidth * thisPercent}px ${scaledHeight - deltaHeight * thisPercent}px`;
-        pcImage.style.backgroundPosition = `${leftX - leftX * thisPercent}px ${upperY - upperY * thisPercent}px`;
-
-
+        // pcImage.style.backgroundSize = `${scaledWidth - deltaWidth * thisPercent}px ${scaledHeight - deltaHeight * thisPercent}px`;
+        // pcImage.style.backgroundPosition = `${leftX - leftX * thisPercent}px ${upperY - upperY * thisPercent}px`;
 
         // var thisPercent = percent - 0.5;
 
