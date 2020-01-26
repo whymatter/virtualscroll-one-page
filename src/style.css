@@ -22,7 +22,8 @@ body {
 }
 
 #first-screen {
-    visibility: hidden;
+    /* visibility: hidden; */
+    transition: 1s;
 }
 
 .person-image {
@@ -32,7 +33,7 @@ body {
 }
 
 #pc-image {
-    background: url(photo-of-imac-near-macbook-1029757-2.jpg);
+    background: url(photo-of-imac-near-macbook-1029757.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     transition: 1s;

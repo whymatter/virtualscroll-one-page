@@ -37,6 +37,9 @@ var upperY2 = -((scale2(pcImageHeight) - viewportHeight) / 2);
 pcImage.style.backgroundSize = `${scaledWidth}px ${scaledHeight}px`;
 pcImage.style.backgroundPosition = `${leftX}px ${upperY}px`;
 
+firstScreen.style.width = `${viewportWidth}px`;
+firstScreen.style.height = `${viewportHeight}px`;
+
 function onScroll(e, a) {
     var percent = window.scrollY/viewportHeight;
 
@@ -44,12 +47,36 @@ function onScroll(e, a) {
         firstScreen.style.transform = `scale(1.0)`;
         secondImage.style.clipPath = `polygon(0 ${100-(percent*100)}%, 0 100%, 100% 100%, 100% ${(percent*100)}%)`;
 
+        firstScreen.style.width = `${viewportWidth}px`;
+        firstScreen.style.height = `${viewportHeight}px`;
+        
+        firstScreen.style.top = `0px`;
+        firstScreen.style.left = `0px`;
+
         pcImage.style.backgroundSize = `${scaledWidth}px ${scaledHeight}px`;
         pcImage.style.backgroundPosition = `${leftX}px ${upperY}px`;
     } else if (percent <= 1.5) {
         
         pcImage.style.backgroundSize = `${scaledWidth2}px ${scaledHeight2}px`;
         pcImage.style.backgroundPosition = `${leftX2}px ${upperY2}px`;
+
+        var s = Math.min(
+            pcImageWidth / innerWidth,
+            pcImageHeight / innerHeight
+        );
+
+        var scaledWidth4 = viewportWidth / s;
+        var scaledHeight4 = viewportHeight / s;
+
+        // firstScreen.style.transform = `scale3d(${scaledWidth4 / viewportWidth}, ${scaledHeight4 / viewportHeight}, 1.0)`
+
+        firstScreen.style.width = `${scaledWidth4}px`;
+        firstScreen.style.height = `${scaledHeight4}px`;
+
+        firstScreen.style.top = `${scale2(getUpperY(innerData))+upperY2}px`;
+        firstScreen.style.left = `${scale2(getLeftX(innerData))+leftX2}px`;
+
+        console.log(scale2(getUpperY(innerData)), upperY2, leftX2);
 
         // var thisPercent = percent - 0.5;
 
