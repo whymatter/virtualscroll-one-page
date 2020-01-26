@@ -21,6 +21,10 @@ body {
     z-index: 9;
 }
 
+#first-screen {
+    visibility: hidden;
+}
+
 .person-image {
     background: url(group-of-people-watching-on-laptop-1595385.jpg);
     background-repeat: no-repeat;
@@ -28,7 +32,7 @@ body {
 }
 
 #pc-image {
-    background: url(photo-of-imac-near-macbook-1029757.jpg);
+    background: url(photo-of-imac-near-macbook-1029757-2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
